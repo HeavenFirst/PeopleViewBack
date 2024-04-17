@@ -1,0 +1,32 @@
+version: '3.4'
+
+networks:
+  peopleview:
+
+services:
+  appDb:
+    container_name: app-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - 8002:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=password@12345#
+    networks:
+      - peopleview
+  peopleviewback:
+    container_name: people-view
+    image: ${DOCKER_REGISTRY-}peopleviewback
+    build:
+      context: .
+      dockerfile: PeopleViewBack/Dockerfile
+    ports:
+      - 8001:8081
+    depends_on:
+      - appDb
+    environment:
+      - DB_HOST=appDb
+      - DB_NAME=People_View_DB
+      - DB_SA_PASSWORD=password@12345#
+    networks:
+      - peopleview

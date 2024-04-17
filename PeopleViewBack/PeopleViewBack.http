@@ -1,0 +1,6 @@
+@PeopleViewBack_HostAddress = http://localhost:5056
+
+GET {{PeopleViewBack_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
