@@ -129,5 +129,11 @@ namespace PeopleViewBack.Controllers
                 return await ExceptionHandling(ex);
             }
         }
+
+        [HttpGet]
+        public IActionResult IsHealthy()
+        {
+            return Ok("YES");              
+        }
     }
 }
